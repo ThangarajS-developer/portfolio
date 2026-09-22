@@ -52,21 +52,36 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
         <div className="flex-1 overflow-y-auto p-6 sm:p-10 bg-white text-zinc-900 font-sans leading-relaxed selection:bg-purple-200">
           
           {/* Header */}
-          <div className="border-b-2 border-purple-800 pb-4 text-center">
-            <h1 className="text-3xl font-extrabold tracking-tight text-zinc-900 font-serif">
-              {PERSONAL_INFO.name}
-            </h1>
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-2 text-xs text-zinc-700">
-              <span className="flex items-center gap-1 font-medium">{PERSONAL_INFO.phone}</span>
-              <span>•</span>
-              <span className="flex items-center gap-1 font-medium">{PERSONAL_INFO.email}</span>
-              <span>•</span>
-              <span className="flex items-center gap-1">{PERSONAL_INFO.address}</span>
+          <div className="border-b-2 border-purple-800 pb-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-center sm:text-left flex-1">
+              <h1 className="text-3xl font-extrabold tracking-tight text-zinc-900 font-serif">
+                {PERSONAL_INFO.name}
+              </h1>
+              <div className="text-xs font-semibold text-purple-900 uppercase tracking-wide mt-0.5">
+                {PERSONAL_INFO.title} • {PERSONAL_INFO.institution}
+              </div>
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 mt-2 text-xs text-zinc-700">
+                <span className="font-medium">{PERSONAL_INFO.phone}</span>
+                <span>•</span>
+                <span className="font-medium">{PERSONAL_INFO.email}</span>
+                <span>•</span>
+                <span>{PERSONAL_INFO.address}</span>
+              </div>
+              <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-3 gap-y-1 mt-1 text-xs text-purple-800 font-medium">
+                <span>{PERSONAL_INFO.linkedinHandle}</span>
+                <span>•</span>
+                <span>{PERSONAL_INFO.githubHandle}</span>
+              </div>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 mt-1 text-xs text-purple-800 font-medium">
-              <span>{PERSONAL_INFO.linkedinHandle}</span>
-              <span>•</span>
-              <span>{PERSONAL_INFO.githubHandle}</span>
+
+            {/* Resume Profile Photo */}
+            <div className="w-20 h-24 rounded-lg border-2 border-purple-800/60 overflow-hidden shrink-0 shadow-sm">
+              <img
+                src={PERSONAL_INFO.avatar}
+                alt="Thangaraj S"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
           </div>
 

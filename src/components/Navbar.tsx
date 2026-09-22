@@ -44,8 +44,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={playClickSound}
           className="group flex items-center gap-3 interactive-target"
         >
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-900/60 via-purple-950 to-black border border-purple-600/40 flex items-center justify-center font-mono font-bold text-sm tracking-wider text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.25)] group-hover:border-purple-500 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
-            TS
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-900/60 via-purple-950 to-black border border-purple-600/40 overflow-hidden shrink-0 shadow-[0_0_15px_rgba(168,85,247,0.25)] group-hover:border-purple-500 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] transition-all">
+            <img
+              src={PERSONAL_INFO.avatar}
+              alt="Thangaraj S"
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover object-top"
+            />
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-bold tracking-tight text-white group-hover:text-purple-300 transition-colors flex items-center gap-1.5">

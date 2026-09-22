@@ -10,6 +10,7 @@ export const PERSONAL_INFO = {
   email: "ssdharan304@gmail.com",
   collegeEmail: "thangaraj.ad24@avsenggcollege.ac.in",
   address: "56/21, Gopal Street, Ponnampet",
+  avatar: "/thangaraj-profile.jpg",
   linkedin: "https://linkedin.com/in/thangaraj-s-694bb73b1",
   linkedinHandle: "linkedin.com/in/thangaraj-s-694bb73b1",
   github: "https://github.com/ThangarajS-developer",

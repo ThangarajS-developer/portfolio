@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
   Phone, Mail, MapPin, Linkedin, Github, Download, Sparkles, 
-  Upload, Image as ImageIcon, RotateCcw, Check, Copy, ExternalLink, 
-  Award, GraduationCap, Bot, ArrowDown, ShieldCheck, ZoomIn
+  Check, Copy, ExternalLink, Award, GraduationCap, Bot, ArrowDown, 
+  ShieldCheck, UserCheck, Terminal
 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { playHoverSound, playClickSound } from '../utils/audio';
@@ -16,70 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onResumeClick,
   onVoiceDemoClick
 }) => {
-  // Profile photo state with localStorage persistence
-  const [profileImage, setProfileImage] = useState<string | null>(null);
   const [copiedField, setCopiedField] = useState<string | null>(null);
-  const [isDragOver, setIsDragOver] = useState(false);
-  const [imageZoom, setImageZoom] = useState<'cover' | 'contain'>('cover');
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  // Load saved photo if exists
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('thangaraj_portfolio_photo');
-      if (saved) {
-        setProfileImage(saved);
-      }
-    } catch {
-      // localStorage may be unavailable
-    }
-  }, []);
-
-  const handleImageUpload = (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      alert('Please upload a valid image file (PNG, JPG, WEBP).');
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const result = e.target?.result as string;
-      if (result) {
-        setProfileImage(result);
-        try {
-          localStorage.setItem('thangaraj_portfolio_photo', result);
-        } catch {
-          // Ignore storage quota limits
-        }
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      handleImageUpload(file);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file) {
-      handleImageUpload(file);
-    }
-  };
-
-  const handleResetImage = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setProfileImage(null);
-    try {
-      localStorage.removeItem('thangaraj_portfolio_photo');
-    } catch {
-      // Ignore
-    }
-  };
 
   const copyToClipboard = (text: string, fieldName: string) => {
     playClickSound();
@@ -282,155 +219,93 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </div>
           </div>
 
-          {/* ================= RIGHT SIDE: Image Frame Container ================= */}
-          {/* Specifically fulfills: "split the space in the names right side for adding my image" */}
+          {/* ================= RIGHT SIDE: Given Portrait Image Frame ================= */}
+          {/* Replaces upload section with the user's uploaded portrait image */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="relative w-full max-w-sm sm:max-w-md">
+            <div className="relative w-full max-w-sm sm:max-w-md group">
               
-              {/* Outer Decorative Cyber Accents */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-tr from-purple-600/30 via-indigo-500/20 to-purple-400/30 blur-xl opacity-75 group-hover:opacity-100 transition duration-1000" />
+              {/* Outer Decorative Cyber Glow Accents */}
+              <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-purple-600/40 via-indigo-600/30 to-purple-400/40 blur-xl opacity-75 group-hover:opacity-100 transition duration-700" />
               
               {/* Tech Brackets Corners */}
-              <div className="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-purple-400 z-20 pointer-events-none" />
-              <div className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-purple-400 z-20 pointer-events-none" />
-              <div className="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-purple-400 z-20 pointer-events-none" />
-              <div className="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-purple-400 z-20 pointer-events-none" />
+              <div className="absolute -top-2.5 -left-2.5 w-5 h-5 border-t-2 border-l-2 border-purple-400 z-20 pointer-events-none" />
+              <div className="absolute -top-2.5 -right-2.5 w-5 h-5 border-t-2 border-r-2 border-purple-400 z-20 pointer-events-none" />
+              <div className="absolute -bottom-2.5 -left-2.5 w-5 h-5 border-b-2 border-l-2 border-purple-400 z-20 pointer-events-none" />
+              <div className="absolute -bottom-2.5 -right-2.5 w-5 h-5 border-b-2 border-r-2 border-purple-400 z-20 pointer-events-none" />
 
               {/* Main Profile Frame */}
-              <div
-                onDragOver={(e) => {
-                  e.preventDefault();
-                  setIsDragOver(true);
-                }}
-                onDragLeave={() => setIsDragOver(false)}
-                onDrop={handleDrop}
-                className={`relative rounded-2xl bg-[#0c0819] border transition-all overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.8)] ${
-                  isDragOver
-                    ? 'border-purple-400 ring-4 ring-purple-500/30 bg-purple-950/40'
-                    : 'border-purple-900/60 hover:border-purple-600/80'
-                }`}
-              >
+              <div className="relative rounded-2xl bg-[#0c0819] border border-purple-800/60 group-hover:border-purple-500 transition-all overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.85)]">
+                
                 {/* Header bar of the image frame */}
                 <div className="flex items-center justify-between px-4 py-2.5 bg-[#120a26] border-b border-purple-950 text-xs font-mono text-purple-300">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
-                    <span>PORTFOLIO_IMAGE // REPO</span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>PORTFOLIO_IMAGE // VERIFIED</span>
                   </div>
-                  <div className="text-[10px] text-zinc-500 uppercase tracking-wider">
-                    {profileImage ? 'Custom Photo Active' : 'Slot Ready'}
+                  <div className="text-[10px] text-purple-300 font-mono flex items-center gap-1">
+                    <UserCheck className="w-3.5 h-3.5 text-purple-400" />
+                    <span>PROFILE ACTIVE</span>
                   </div>
                 </div>
 
                 {/* Profile Image View Area */}
-                <div className="relative aspect-[4/5] w-full bg-gradient-to-b from-[#130d29] via-[#090615] to-[#06040d] flex items-center justify-center overflow-hidden">
+                <div className="relative aspect-[4/5] w-full bg-[#080512] flex items-center justify-center overflow-hidden">
                   
-                  {profileImage ? (
-                    // Display user's uploaded image
-                    <img
-                      src={profileImage}
-                      alt="Thangaraj S"
-                      className={`w-full h-full ${imageZoom === 'cover' ? 'object-cover' : 'object-contain'} transition-all duration-300`}
-                    />
-                  ) : (
-                    // Default sleek cyber avatar representation with visual indicators
-                    <div className="flex flex-col items-center justify-center text-center p-6 w-full h-full relative">
-                      {/* Holographic grid rings in background */}
-                      <div className="absolute inset-0 cyber-grid opacity-30" />
-                      
-                      {/* Animated circular aura */}
-                      <div className="w-36 h-36 rounded-full bg-gradient-to-br from-purple-600/20 via-indigo-600/20 to-purple-900/30 border border-purple-500/40 flex items-center justify-center mb-4 relative shadow-[0_0_35px_rgba(168,85,247,0.3)]">
-                        <div className="absolute inset-2 rounded-full border border-dashed border-purple-400/40 animate-[spin_20s_linear_infinite]" />
-                        <span className="text-4xl font-extrabold font-mono tracking-wider bg-gradient-to-r from-purple-200 to-indigo-300 bg-clip-text text-transparent">
-                          TS
-                        </span>
-                      </div>
+                  {/* Portrait photo of Thangaraj S */}
+                  <img
+                    src={PERSONAL_INFO.avatar}
+                    alt="Thangaraj S - Aspiring AI Engineer"
+                    referrerPolicy="no-referrer"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
 
-                      <div className="space-y-1 relative z-10 max-w-xs">
-                        <div className="text-base font-bold text-white font-mono tracking-wide">
-                          THANGARAJ S
-                        </div>
-                        <p className="text-xs text-purple-300/80 font-mono">
-                          B.Tech Artificial Intelligence & Data Science
-                        </p>
-                        <p className="text-[11px] text-zinc-400 mt-2 px-3 py-1.5 rounded-lg bg-purple-950/40 border border-purple-900/50">
-                          Click below or drag & drop to upload your portrait photo right here
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                  {/* Subtle futuristic gradient vignette */}
+                  <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#0c0819] via-transparent to-transparent opacity-70" />
 
-                  {/* Scanning line animation */}
-                  <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-purple-500/10 to-transparent h-16 w-full animate-[bounce_5s_infinite] opacity-40" />
-
-                  {/* Badges overlaid on top of photo */}
+                  {/* Overlaid Badges */}
                   <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between gap-2 pointer-events-none">
-                    <span className="px-2.5 py-1 rounded-md bg-[#090514]/90 border border-purple-700/50 text-[11px] font-mono text-purple-200 shadow-lg backdrop-blur-md">
+                    <span className="px-2.5 py-1 rounded-md bg-[#090514]/90 border border-purple-700/60 text-[11px] font-mono text-purple-200 shadow-lg backdrop-blur-md">
                       CGPA: 8.01
                     </span>
-                    <span className="px-2.5 py-1 rounded-md bg-purple-900/80 border border-purple-500/60 text-[11px] font-mono text-white shadow-lg backdrop-blur-md flex items-center gap-1">
+                    <span className="px-2.5 py-1 rounded-md bg-purple-900/90 border border-purple-500/70 text-[11px] font-mono text-white shadow-lg backdrop-blur-md flex items-center gap-1">
                       <Award className="w-3 h-3 text-amber-300" />
                       1st Prize Winner
                     </span>
                   </div>
                 </div>
 
-                {/* Interactive Image Upload / Controls Footer */}
+                {/* Identity Card Bar Beneath Image */}
                 <div className="p-3.5 bg-[#0e0821] border-t border-purple-950/80 flex items-center justify-between gap-2">
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    className="hidden"
-                  />
-                  
-                  <button
-                    onClick={() => {
-                      playClickSound();
-                      fileInputRef.current?.click();
-                    }}
+                  <div className="truncate">
+                    <div className="text-xs font-bold font-mono text-white flex items-center gap-1.5 truncate">
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-400" />
+                      <span>{PERSONAL_INFO.name}</span>
+                    </div>
+                    <div className="text-[11px] font-mono text-zinc-400 truncate mt-0.5">
+                      B.Tech AI & Data Science • Developer
+                    </div>
+                  </div>
+
+                  <a
+                    href={PERSONAL_INFO.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
                     onMouseEnter={playHoverSound}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white text-xs font-semibold shadow-[0_0_15px_rgba(147,51,234,0.3)] border border-purple-400/40 transition-all interactive-target"
+                    className="px-2.5 py-1.5 rounded-lg bg-purple-950/60 hover:bg-purple-900/70 border border-purple-800/50 text-[11px] font-mono text-purple-300 hover:text-white transition-all flex items-center gap-1.5 shrink-0 interactive-target"
                   >
-                    <Upload className="w-3.5 h-3.5" />
-                    <span>{profileImage ? 'Change Image' : 'Upload My Image'}</span>
-                  </button>
-
-                  {profileImage && (
-                    <>
-                      <button
-                        onClick={(e) => {
-                          playClickSound();
-                          e.stopPropagation();
-                          setImageZoom(imageZoom === 'cover' ? 'contain' : 'cover');
-                        }}
-                        onMouseEnter={playHoverSound}
-                        className="p-2 rounded-lg bg-purple-950/50 hover:bg-purple-900/60 text-purple-300 border border-purple-800/40 transition-all interactive-target"
-                        title={imageZoom === 'cover' ? 'Fit entire image' : 'Fill frame'}
-                      >
-                        <ZoomIn className="w-4 h-4" />
-                      </button>
-
-                      <button
-                        onClick={handleResetImage}
-                        onMouseEnter={playHoverSound}
-                        className="p-2 rounded-lg bg-red-950/40 hover:bg-red-900/50 text-red-300 border border-red-800/30 transition-all interactive-target"
-                        title="Remove uploaded image"
-                      >
-                        <RotateCcw className="w-4 h-4" />
-                      </button>
-                    </>
-                  )}
+                    <Linkedin className="w-3 h-3 text-purple-400" />
+                    <span>Connect</span>
+                  </a>
                 </div>
               </div>
 
               {/* Helper caption beneath right-hand photo frame */}
-              <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 mt-2 px-1">
-                <span className="flex items-center gap-1 text-purple-400/80">
-                  <ShieldCheck className="w-3 h-3 text-purple-400" />
-                  Split Profile Space Active
+              <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 mt-2.5 px-1">
+                <span className="flex items-center gap-1 text-purple-400/90">
+                  <ShieldCheck className="w-3.5 h-3.5 text-purple-400" />
+                  Verified Identity Profile
                 </span>
-                <span>PNG / JPG / WEBP</span>
+                <span className="text-zinc-500">AVS Engineering College</span>
               </div>
             </div>
           </div>
