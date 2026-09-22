@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* When custom cursor is active on non-touch devices, hide the default system cursor */
+  body.custom-cursor-enabled,
+  body.custom-cursor-enabled * {
+    cursor: none !important;
+  }
+}
+
+/* Custom Scrollbar - Cyber Purple */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #090711;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a1b4d;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Subtle background grid pattern */
+.cyber-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
+}
+
+.glow-purple {
+  box-shadow: 0 0 25px -5px rgba(168, 85, 247, 0.25);
+}
+
+.glow-purple-strong {
+  box-shadow: 0 0 40px 0px rgba(168, 85, 247, 0.4);
+}
+
+/* Print styles for resume */
+@media print {
+  body.custom-cursor-enabled,
+  body.custom-cursor-enabled * {
+    cursor: auto !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
+
