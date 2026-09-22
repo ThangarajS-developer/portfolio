@@ -73,16 +73,6 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                 <span>{PERSONAL_INFO.githubHandle}</span>
               </div>
             </div>
-
-            {/* Resume Profile Photo */}
-            <div className="w-20 h-24 rounded-lg border-2 border-purple-800/60 overflow-hidden shrink-0 shadow-sm">
-              <img
-                src={PERSONAL_INFO.avatar}
-                alt="Thangaraj S"
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
           </div>
 
           {/* Body Sections */}
